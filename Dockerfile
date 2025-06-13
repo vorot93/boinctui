@@ -9,11 +9,9 @@ COPY ./ /workdir/
 WORKDIR /workdir
 
 RUN \
-    autoconf; \
-    automake --add-missing; \
-    ./configure --without-gnutls; \
-    make; \
-    strip boinctui
+    meson setup builddir -D without-gnutls=true; \
+    meson compile -C builddir; \
+    strip builddir/src/boinctui
 
 FROM alpine AS final
 
@@ -22,5 +20,5 @@ RUN \
         expat ncurses openssl libstdc++ \
         libpanelw libformw libmenuw
 
-COPY --from=base /workdir/boinctui /
+COPY --from=base /workdir/builddir/src/boinctui /
 ENTRYPOINT ["/boinctui"]
