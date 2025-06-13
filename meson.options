@@ -1,0 +1,2 @@
+option('without-gnutls', type: 'boolean', value: false, description: 'Disable GnuTLS support')
+option('boinc_dir', type: 'string', value: '/var/lib/boinc-client', description: 'Specify the BOINC data directory')
